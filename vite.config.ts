@@ -11,12 +11,18 @@ export default defineConfig({
   build: {
     outDir: '../../dist',
     emptyOutDir: true,
+    rollupOptions: {
+      external: ['jsdom', 'pngjs', 'node:buffer'],
+    },
   },
   resolve: {
     alias: {
       '@common': path.resolve(__dirname, 'src/common'),
       '@renderer': path.resolve(__dirname, 'src/renderer'),
     },
+  },
+  optimizeDeps: {
+    exclude: ['jsdom', 'pngjs'],
   },
   server: {
     port: 5173,

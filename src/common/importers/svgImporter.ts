@@ -20,10 +20,10 @@ export async function importSvg(svgContent: string, gridSize = 1): Promise<Plan>
 }
 
 async function parseDocument(svgContent: string) {
-  if (typeof DOMParser !== 'undefined') {
+  if (typeof window !== 'undefined' && typeof DOMParser !== 'undefined') {
     return new DOMParser().parseFromString(svgContent, 'image/svg+xml');
   }
-  const { JSDOM } = await import('jsdom');
+  const { JSDOM } = await import(/* @vite-ignore */ 'jsdom');
   return new JSDOM(svgContent).window.document;
 }
 

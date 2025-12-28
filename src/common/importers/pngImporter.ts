@@ -1,4 +1,3 @@
-import { Buffer } from 'buffer';
 import { Plan, Polyline } from '../../types';
 import { snapPolyline } from '../utils/grid';
 
@@ -27,7 +26,8 @@ async function decodeOutline(buffer: Uint8Array, gridSize: number): Promise<Poly
     return rasterToPolyline({ width: image.width, height: image.height, data: new Uint8Array(data) }, gridSize);
   }
 
-  const { PNG } = await import('pngjs');
+  const { Buffer } = await import('node:buffer');
+  const { PNG } = await import(/* @vite-ignore */ 'pngjs');
   const png = PNG.sync.read(Buffer.from(buffer));
   return rasterToPolyline(png, gridSize);
 }
